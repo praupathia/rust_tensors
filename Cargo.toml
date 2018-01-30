@@ -1,0 +1,8 @@
+[package]
+name = "linalg"
+version = "0.1.0"
+authors = ["Michael Summers <praupathia@gmail.com>"]
+
+[dependencies]
+frunk = "0.1.34"
+frunk_core = "0.0.21"

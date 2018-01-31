@@ -3,6 +3,7 @@
 
 use std::fmt;
 use std::fmt::Debug;
+//use std::vec::vec;
 //use std::ops::Index;
 
 //----------------------------------------------------------------------
@@ -38,12 +39,22 @@ impl <F> PartialEq for Dim<F> {
 
 fn main() {
 
-    let f = |x: usize| x;
+    let f = |i: usize| i;
     
     let dim3 = Dim {size:3, cap:3, value:f};
+
+    println!("dim3.value(2) is : {:#?}", (dim3.value)(2));
+
+    let v = vec![1,2,3];
+
+    println!("v is : {:#?}", v);
+
+    let dim3_v = Dim {size:3, cap:3, value: |i: usize| v[i]};
+
+    println!("dim3_v.value(1) is : {:#?}", (dim3_v.value)(1));
     
 //    let h: Hlist!(&Dim,&Dim) = hlist![&dim3, &dim3];
-    let h = hlist![&dim3, &dim3];
+    let h = hlist![&dim3, &dim3_v];
     
     // We use the Hlist! type macro to make it easier to write
     // a type signature for HLists, which is a series of nested HCons
@@ -54,7 +65,7 @@ fn main() {
     
     let hlist_pat!(dim1, dim2) = h;
     assert_eq!(dim1, &dim3);
-    assert_eq!(dim2, &dim3);
+    assert_eq!(dim2, &dim3_v);
 
     println!("The HList is : {:#?}", h);
     
